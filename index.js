@@ -3,6 +3,7 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 const app = express()
+const port = process.env.PORT || 3000
 app.use(express.json())
 
 app.post('/characters', async (req, res) => {
@@ -51,6 +52,10 @@ app.get('/characters', async (req, res) => {
     res.status(200).json(characters)
 })
 
+app.get('/', (req, res) => {
+    res.send('ORV API')
+})
+
 app.delete('/characters/:id', async (req, res) => {
     await prisma.character.delete({
         where: {
@@ -60,4 +65,6 @@ app.delete('/characters/:id', async (req, res) => {
     res.status(200).json({ message: 'Personagem deletado com sucesso!' })
 })
 
-app.listen(3000)
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+  })
