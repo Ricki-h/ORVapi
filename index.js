@@ -63,7 +63,8 @@ app.post('/characters', upload.fields([
     { name: 'img2', maxCount: 1 }
 ]), async (req, res) => {
     try {
-        const baseUrl = `${req.protocol}://${req.get('host')}`
+        // Force HTTPS for image URLs
+        const baseUrl = `https://${req.get('host')}`
         const img1Url = req.files['img1'] ? `${baseUrl}/img/${req.files['img1'][0].filename}` : null
         const img2Url = req.files['img2'] ? `${baseUrl}/img/${req.files['img2'][0].filename}` : null
 
@@ -92,7 +93,8 @@ app.put('/characters/:id', upload.fields([
     { name: 'img2', maxCount: 1 }
 ]), async (req, res) => {
     try {
-        const baseUrl = `${req.protocol}://${req.get('host')}`
+        // Force HTTPS for image URLs
+        const baseUrl = `https://${req.get('host')}`
         const img1Url = req.files['img1'] ? `${baseUrl}/img/${req.files['img1'][0].filename}` : req.body.img1
         const img2Url = req.files['img2'] ? `${baseUrl}/img/${req.files['img2'][0].filename}` : req.body.img2
 
@@ -129,7 +131,8 @@ app.post('/upload', upload.single('image'), (req, res) => {
     if (!req.file) {
         return res.status(400).json({ error: 'Nenhuma imagem enviada' })
     }
-    const imageUrl = `${req.protocol}://${req.get('host')}/img/${req.file.filename}`
+    // Force HTTPS for image URL
+    const imageUrl = `https://${req.get('host')}/img/${req.file.filename}`
     res.json({ url: imageUrl })
 })
 
