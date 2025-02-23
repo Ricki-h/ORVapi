@@ -2,10 +2,19 @@ import express, { request } from 'express'
 import { PrismaClient } from '@prisma/client'
 import multer from 'multer'
 import path from 'path'
+import cors from 'cors'
 
 const prisma = new PrismaClient()
 const app = express()
 const port = process.env.PORT || 3001
+
+// Configuração explícita do CORS para liberar tudo
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}))
+
 app.use(express.json())
 app.use(express.static('public'))
 
