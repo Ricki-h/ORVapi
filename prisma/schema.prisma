@@ -13,12 +13,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model character {
-  id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  name    String
+model Character {
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
   constellation String
-  race    String
-  img1    String
-  img2    String
-  description String
+  race          String
+  description   String
+  img1          String
+  img2          String
 }
